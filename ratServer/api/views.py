@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import permissions, generics
 from api.serializers import UserSerializer, GroupSerializer, CommandSerializer, ResponseSerializer
 from api.models import Command, Response
 
@@ -25,6 +25,15 @@ class CommandViewSet(viewsets.ModelViewSet):
 
     queryset = Command.objects.all()
     serializer_class = CommandSerializer
+
+
+class CommandDetail(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Command.objects.all()
+    serializer_class = CommandSerializer
+
+    def perform_destroy(self, instance):
+       instance.delete()
 
 
 class ResponseViewSet(viewsets.ModelViewSet):

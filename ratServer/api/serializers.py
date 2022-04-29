@@ -14,14 +14,15 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-class CommandSerializer(serializers.HyperlinkedModelSerializer):
+class CommandSerializer(serializers.HyperlinkedModelSerializer): 
+    url = serializers.HyperlinkedIdentityField(view_name="command-detail")
     id = serializers.IntegerField(read_only=True)
     instruction = serializers.CharField(required=False, allow_blank=True, max_length=200)
     treated = serializers.BooleanField(required=False)
 
     class Meta:
         model = Command
-        fields = ['created', 'id', 'instruction', 'treated']
+        fields = ['created', 'url', 'id', 'instruction', 'treated']
 
 class ResponseSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
