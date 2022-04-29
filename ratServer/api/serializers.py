@@ -26,7 +26,8 @@ class CommandSerializer(serializers.HyperlinkedModelSerializer):
 
 class ResponseSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    url = serializers.HyperlinkedIdentityField(view_name="command-detail")
     
     class Meta:
         model = Response
-        fields = ['id', 'created', 'command_instruction', 'value']
+        fields = ['id', 'url', 'created', 'command_instruction', 'value']
